@@ -16,7 +16,7 @@ async function SuperDiamondFetch(url, options) {
     optionsWithDefault.body = options.body
    }
    if("headers" in options) {
-    optionsWithDefault.method = options.headers
+    optionsWithDefault.headers = options.headers
    }
    if("timeout" in options) {
     optionsWithDefault.timeout = options.timeout
