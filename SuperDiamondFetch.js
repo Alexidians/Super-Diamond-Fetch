@@ -30,8 +30,9 @@ async function SuperDiamondFetch(url, options) {
       optionsWithDefault.url = url;
 
       var response = await fetch("https://alexidians.com/Super-Diamond-Fetch/SuperDiamondFetch.php", {
-        method: "POST", // Method remains POST
-        body: JSON.stringify(optionsWithDefault) // Body is the serialized options object
+        method: "POST",
+        body: JSON.stringify(optionsWithDefault),
+        credentials: "include"
       });
 
       if (!response.ok) {
