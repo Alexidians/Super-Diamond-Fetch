@@ -88,9 +88,26 @@ async function SuperDiamondFetch(url, options) {
          return new Promise((resolve, reject) => {
           try {
            var encoder = new TextEncoder();
-           var encodedData = encoder.encode(stringData);
+           var encodedData = encoder.encode(responseObj.body);
            var arrayBuffer = encodedData.buffer;
            resolve(arrayBuffer)
+          } catch(err) {
+           reject(err)
+          }
+         );
+        }
+        responseObj.reader.formData = async function() {
+         return new Promise((resolve, reject) => {
+          try {
+           var keyValuePairs =  responseObj.body.split('&');
+           var formData = new FormData();
+           keyValuePairs.forEach(function(keyValuePair) {
+               var pair = keyValuePair.split('=');
+               var key = pair[0];
+               var value = pair[1];
+               formData.append(key, decodeURIComponent(value));
+           });
+           resolve(formData)
           } catch(err) {
            reject(err)
           }
