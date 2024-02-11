@@ -114,6 +114,7 @@ async function SuperDiamondFetch(url, options) {
           }
          });
         }
+        resolve(responseObj)
       } catch(err) {
         const e = new Error("SuperDiamondFetch Could Not Parse The Server Response to Response obj", { cause: err});
         e.name = "SuperDiamondFetch Parse Error";
