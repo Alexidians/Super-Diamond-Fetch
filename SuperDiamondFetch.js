@@ -44,6 +44,7 @@ async function SuperDiamondFetch(url, options) {
       }
       try {
        var responseObj = await response.json();
+       responseObj.SuperDiamondFetch = response
        responseObj.reader.text = async function() {
          return new Promise((resolve, reject) => {
           try {
