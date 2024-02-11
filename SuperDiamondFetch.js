@@ -53,7 +53,7 @@ async function SuperDiamondFetch(url, options) {
           } catch(err) {
            reject(err)
           }
-         );
+         });
         }
        responseObj.reader.json = async function() {
          return new Promise((resolve, reject) => {
@@ -63,7 +63,7 @@ async function SuperDiamondFetch(url, options) {
           } catch(err) {
            reject(err)
           }
-         );
+         });
         }
         responseObj.reader.blob = async function() {
          return new Promise((resolve, reject) => {
@@ -73,7 +73,7 @@ async function SuperDiamondFetch(url, options) {
           } catch(err) {
            reject(err)
           }
-         );
+         });
         }
         responseObj.reader.customBlob = async function(type) {
          return new Promise((resolve, reject) => {
@@ -83,7 +83,7 @@ async function SuperDiamondFetch(url, options) {
           } catch(err) {
            reject(err)
           }
-         );
+         });
         }
         responseObj.reader.arrayBuffer = async function() {
          return new Promise((resolve, reject) => {
@@ -95,7 +95,7 @@ async function SuperDiamondFetch(url, options) {
           } catch(err) {
            reject(err)
           }
-         );
+         });
         }
         responseObj.reader.formData = async function() {
          return new Promise((resolve, reject) => {
@@ -112,7 +112,7 @@ async function SuperDiamondFetch(url, options) {
           } catch(err) {
            reject(err)
           }
-         );
+         });
         }
        }
       } catch(err) {
