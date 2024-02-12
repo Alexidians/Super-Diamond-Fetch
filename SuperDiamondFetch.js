@@ -8,7 +8,8 @@ async function SuperDiamondFetch(url, options) {
         timeout: 10000,
         credentials: "same-origin",
         redirects: {
-         follow: false
+         follow: false,
+         follow_amount: -1
         }
       };
 
@@ -32,6 +33,9 @@ async function SuperDiamondFetch(url, options) {
       if ("redirects" in options) {
         if("follow" in options.redirects) {
          optionsWithDefault.redirects.follow = options.redirects.follow;
+        }
+        if("follow_amount" in options.redirects) {
+         optionsWithDefault.redirects.follow_amount = options.redirects.follow_amount;
         }
       }
 
