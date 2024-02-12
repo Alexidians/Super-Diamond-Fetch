@@ -6,7 +6,10 @@ async function SuperDiamondFetch(url, options) {
         body: "",
         headers: {},
         timeout: 10000,
-        credentials: "same-origin"
+        credentials: "same-origin",
+        redirects: {
+         follow: false
+        }
       };
 
       var optionsWithDefault = { ...DefaultOptions };
@@ -25,6 +28,11 @@ async function SuperDiamondFetch(url, options) {
       }
       if ("credentials" in options) {
         optionsWithDefault.credentials = options.credentials;
+      }
+      if ("redirects" in options) {
+        if("follow" in options.redirects) {
+         optionsWithDefault.redirects.follow = options.redirects.follow;
+        }
       }
 
       optionsWithDefault.url = url;
@@ -126,4 +134,10 @@ async function SuperDiamondFetch(url, options) {
       reject(err);
     }
   });
+}
+
+function UpdateSuperDiamondFetch() {
+ var elem = document.createElement("script")
+ elem.src = "https://alexidians.github.io/Super-Diamond-Fetch/SuperDiamondFetch.js"
+ document.body.appendChild(elem)
 }
