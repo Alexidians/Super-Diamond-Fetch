@@ -7,6 +7,7 @@ async function SuperDiamondFetch(url, options) {
         headers: {},
         timeout: 10000,
         credentials: "same-origin",
+        hide_ip: false,
         redirects: {
          follow: false,
          follow_amount: -1
