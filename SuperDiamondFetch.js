@@ -1,3 +1,20 @@
+var SuperDiamondFetchCacheStorage = null
+
+async function initSuperDiamondFetchLocalCache() {
+   return new Promise((resolve, reject) => {
+    SuperDiamondFetchCacheStorage = new SuperDiamondStoreConst()
+    SuperDiamondFetchCacheStorage.dbName = "SuperDiamondFetchCacheStorage"
+    SuperDiamondFetchCacheStorage.name = "local"
+    SuperDiamondFetchCacheStorage.async.reload()
+     .then(() => {
+      resolve(SuperDiamondFetchCacheStorage)
+     })
+     .catch(err => {
+      resolve(err)
+     })
+  });
+}
+
 async function SuperDiamondFetch(url, options) {
   return new Promise(async (resolve, reject) => {
     try {
