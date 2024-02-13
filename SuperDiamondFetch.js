@@ -28,6 +28,11 @@ async function SuperDiamondFetch(url, options) {
         redirects: {
          follow: false,
          follow_amount: -1
+        },
+        caching: {
+         read: false,
+         write: false,
+         type: "origin"
         }
       };
 
@@ -56,8 +61,25 @@ async function SuperDiamondFetch(url, options) {
          optionsWithDefault.redirects.follow_amount = options.redirects.follow_amount;
         }
       }
+      if ("caching" in options) {
+        if("read" in options.caching) {
+         optionsWithDefault.caching.read = options.caching.read;
+        }
+        if("write" in options.caching) {
+         optionsWithDefault.caching.write = options.caching.write;
+        }
+        if("type" in options.caching) {
+         optionsWithDefault.caching.type = options.caching.type;
+        }
+      }
 
       optionsWithDefault.url = url;
+      if(optionsWithDefault.caching.read) {
+       if(optionsWithDefault.caching.type == "local") {
+        var responseObj = JSON.parse(await SuperDiamondFetchCacheStorage.getItem(url));
+        resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
+       }
+      }
 
       var response = await fetch("https://alexidians.com/Super-Diamond-Fetch/SuperDiamondFetch.php", {
         method: "POST",
@@ -74,7 +96,26 @@ async function SuperDiamondFetch(url, options) {
       }
       try {
        var responseObj = await response.json();
+       if(optionsWithDefault.caching.write) {
+        if(optionsWithDefault.caching.type == "local") {
+         await SuperDiamondFetchCacheStorage.setItem(url, JSON.stringify(await SuperDiamondFetchCacheStorage.getItem(url)))
+        }
+       }
        responseObj.SuperDiamondFetch = response
+       resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+function UpdateSuperDiamondFetch() {
+ var elem = document.createElement("script")
+ elem.src = "https://alexidians.github.io/Super-Diamond-Fetch/SuperDiamondFetch.js"
+ document.body.appendChild(elem)
+}
+
+function CompleteSuperDiamondFetchResponseObject(responseObj) {
        responseObj.reader.text = async function() {
          return new Promise((resolve, reject) => {
           try {
@@ -144,22 +185,5 @@ async function SuperDiamondFetch(url, options) {
           }
          });
         }
-        resolve(responseObj)
-      } catch(err) {
-        const e = new Error("SuperDiamondFetch Could Not Parse The Server Response to Response obj", { cause: err});
-        e.name = "SuperDiamondFetch Parse Error";
-        e.code = "ERR_FETCH_NETWORK_NOT_OK";
-      }
-
-      resolve(responseObj);
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
-
-function UpdateSuperDiamondFetch() {
- var elem = document.createElement("script")
- elem.src = "https://alexidians.github.io/Super-Diamond-Fetch/SuperDiamondFetch.js"
- document.body.appendChild(elem)
+        return responseObj;
 }
