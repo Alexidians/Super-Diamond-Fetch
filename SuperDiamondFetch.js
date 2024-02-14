@@ -15,6 +15,13 @@ async function initSuperDiamondFetchLocalCache() {
   });
 }
 
+function initSuperDiamondFetchAutoRetryAPI() {
+ var elem = document.createElement("script")
+ elem.src = "https://alexidians.github.io/Super-Diamond-Fetch/Extensions/Retry-API/SuperDiamondFetch.js"
+ document.body.appendChild(elem)
+}
+
+   
 async function SuperDiamondFetch(url, options) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -33,6 +40,10 @@ async function SuperDiamondFetch(url, options) {
          read: false,
          write: false,
          type: "origin"
+        },
+        AutoRetry: {
+         enable: false,
+         MaxRetry: Infinity
         }
       };
 
@@ -70,6 +81,14 @@ async function SuperDiamondFetch(url, options) {
         }
         if("type" in options.caching) {
          optionsWithDefault.caching.type = options.caching.type;
+        }
+      }
+      if ("AutoRetry" in options) {
+        if("enable" in options.AutoRetry) {
+         optionsWithDefault.AutoRetry.enable = options.AutoRetry.enable;
+        }
+        if("MaxRetry" in options.AutoRetry) {
+         optionsWithDefault.AutoRetry.MaxRetry = options.AutoRetry.MaxRetry;
         }
       }
 
