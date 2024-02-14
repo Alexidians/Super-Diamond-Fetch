@@ -4,7 +4,7 @@ async function initSuperDiamondFetchLocalCache() {
     return new Promise((resolve, reject) => {
         SuperDiamondFetchCacheStorage = new SuperDiamondStoreConst();
         SuperDiamondFetchCacheStorage.dbName = "SuperDiamondFetchCacheStorage";
-        SuperDiamondFetchCacheStorage.name = "local";
+        SuperDiamondFetchCacheStorage.storeName = "local";
         SuperDiamondFetchCacheStorage.async.reload()
             .then(() => {
                 resolve(SuperDiamondFetchCacheStorage);
