@@ -79,7 +79,7 @@ async function SuperDiamondFetch(url, options) {
             const responseObj = await response.json();
 
             if (optionsWithDefault.caching.write && optionsWithDefault.caching.type === "local") {
-                await SuperDiamondFetchCacheStorage.async.setItem(url, JSON.stringify(responseObj)));
+                await SuperDiamondFetchCacheStorage.async.setItem(url, JSON.stringify(responseObj));
             }
 
             responseObj.SuperDiamondFetch = response;
