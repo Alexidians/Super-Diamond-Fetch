@@ -57,7 +57,7 @@ async function SuperDiamondFetch(url, options) {
             }
 
             if (optionsWithDefault.caching.read && optionsWithDefault.caching.type === "local") {
-                const responseObj = JSON.parse(await SuperDiamondFetchCacheStorage.getItem(url));
+                const responseObj = JSON.parse(await SuperDiamondFetchCacheStorage.async.getItem(url));
                 resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
                 return;
             }
@@ -79,7 +79,7 @@ async function SuperDiamondFetch(url, options) {
             const responseObj = await response.json();
 
             if (optionsWithDefault.caching.write && optionsWithDefault.caching.type === "local") {
-                await SuperDiamondFetchCacheStorage.setItem(url, JSON.stringify(await SuperDiamondFetchCacheStorage.getItem(url)));
+                await SuperDiamondFetchCacheStorage.async.setItem(url, JSON.stringify(responseObj)));
             }
 
             responseObj.SuperDiamondFetch = response;
