@@ -16,7 +16,7 @@ async function initSuperDiamondFetchLocalCache() {
 }
 
 async function initSuperDiamondFetchAutoRetryAPI() {
-    const elem = document.createElement("script");
+     var elem = document.createElement("script");
     elem.src = "https://alexidians.github.io/Super-Diamond-Fetch/Extensions/Retry-API/SuperDiamondFetch.js";
     document.body.appendChild(elem);
 }
@@ -24,7 +24,7 @@ async function initSuperDiamondFetchAutoRetryAPI() {
 async function SuperDiamondFetch(url, options) {
     return new Promise(async (resolve, reject) => {
         try {
-            const DefaultOptions = {
+             var DefaultOptions = {
                 method: "GET",
                 body: "",
                 headers: {},
@@ -46,11 +46,11 @@ async function SuperDiamondFetch(url, options) {
                 }
             };
 
-            const optionsWithDefault = { ...DefaultOptions, ...options };
+            var optionsWithDefault = { ...DefaultOptions, ...options };
             optionsWithDefault.url = url;
 
             if (optionsWithDefault.AutoRetry.enable) {
-                const optionsAutoRetry = { ...options };
+                var const optionsAutoRetry = { ...options };
                 optionsAutoRetry.AutoRetry.enable = false;
                 resolve(await SuperDiamondFetchAutoRetry(url, optionsAutoRetry));
                 return;
@@ -74,21 +74,21 @@ async function SuperDiamondFetch(url, options) {
               }
             }
 
-            const response = await fetch("https://alexidians.com/Super-Diamond-Fetch/SuperDiamondFetch.php", {
+            var response = await fetch("https://alexidians.com/Super-Diamond-Fetch/SuperDiamondFetch.php", {
                 method: "POST",
                 body: JSON.stringify(optionsWithDefault),
                 credentials: "include"
             });
 
             if (!response.ok) {
-                const e = new Error("Fetch Has Failed due to not ok network response. Status Code: " + response.status);
+                var e = new Error("Fetch Has Failed due to not ok network response. Status Code: " + response.status);
                 e.name = "SuperDiamondFetch Failed";
                 e.code = "ERR_FETCH_NETWORK_NOT_OK";
                 reject(e);
                 return;
             }
 
-            const responseObj = await response.json();
+            var responseObj = await response.json();
 
             if (optionsWithDefault.caching.write) {
               if(optionsWithDefault.caching.type == "SuperDiamondStore" || optionsWithDefault.caching.type == "IndexedDB") {
@@ -111,13 +111,13 @@ async function SuperDiamondFetch(url, options) {
 }
 
 async function UpdateSuperDiamondFetch() {
-    const elem = document.createElement("script");
+     var elem = document.createElement("script");
     elem.src = "https://alexidians.github.io/Super-Diamond-Fetch/SuperDiamondFetch.js";
     document.body.appendChild(elem);
 }
 
 function CompleteSuperDiamondFetchResponseObject(responseObj) {
-    const reader = {
+     var reader = {
         text: async () => {
             try {
                 return responseObj.body;
