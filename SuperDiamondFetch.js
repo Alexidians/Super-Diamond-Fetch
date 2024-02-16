@@ -64,11 +64,13 @@ async function SuperDiamondFetch(url, options) {
               }
               if(optionsWithDefault.caching.type == "local") {
                 var responseObj = await fetch("http://localhost:4001/Cache/Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
+                responseObj = await responseObj.json()
                 resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
                 return;
               }
               if(optionsWithDefault.caching.type == "origin-local") {
                 var responseObj = await fetch("http://localhost:4001/Cache/Origin-Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
+                responseObj = await responseObj.json()
                 resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
                 return;
               }
