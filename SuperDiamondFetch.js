@@ -95,10 +95,10 @@ async function SuperDiamondFetch(url, options) {
                 await SuperDiamondFetchCacheStorage.async.setItem(url, JSON.stringify(responseObj));
               }
               if(optionsWithDefault.caching.type == "local") {
-                await fetch("http://localhost:4001/Cache/Local/get.php", { method: "POST", body: JSON.stringify({ key: url, value: JSON.stringify(responseObj)})})
+                await fetch("http://localhost:4001/Cache/Local/set.php", { method: "POST", body: JSON.stringify({ key: url, value: JSON.stringify(responseObj)})})
               }
               if(optionsWithDefault.caching.type == "origin-local") {
-                await fetch("http://localhost:4001/Cache/Origin-Local/get.php", { method: "POST", body: JSON.stringify({ key: url, value: JSON.stringify(responseObj)})})
+                await fetch("http://localhost:4001/Cache/Origin-Local/set.php", { method: "POST", body: JSON.stringify({ key: url, value: JSON.stringify(responseObj)})})
               }
             }
 
