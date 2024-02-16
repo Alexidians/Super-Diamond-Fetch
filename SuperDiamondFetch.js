@@ -58,17 +58,17 @@ async function SuperDiamondFetch(url, options) {
 
             if (optionsWithDefault.caching.read) {
               if(optionsWithDefault.caching.type == "SuperDiamondStore" || optionsWithDefault.caching.type == "IndexedDB") {
-                const responseObj = JSON.parse(await SuperDiamondFetchCacheStorage.async.getItem(url));
+                var responseObj = JSON.parse(await SuperDiamondFetchCacheStorage.async.getItem(url));
                 resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
                 return;
               }
               if(optionsWithDefault.caching.type == "local") {
-                var responseObj = fetch("http://localhost:4001/Cache/Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
+                var responseObj = await fetch("http://localhost:4001/Cache/Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
                 resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
                 return;
               }
               if(optionsWithDefault.caching.type == "origin-local") {
-                var responseObj = fetch("http://localhost:4001/Cache/Origin-Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
+                var responseObj = await fetch("http://localhost:4001/Cache/Origin-Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
                 resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
                 return;
               }
