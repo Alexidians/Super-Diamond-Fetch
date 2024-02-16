@@ -1,0 +1,6 @@
+The Server Must Allow Resources from from:
+https://alexidians.github.io,
+https://alexidians.com,
+http://localhost:4001
+
+they are system domains. localhost:4001 is for client installation. alexidians.github.io is for fronted. and alexidians.com is the backend.
