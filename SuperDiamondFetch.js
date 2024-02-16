@@ -56,10 +56,22 @@ async function SuperDiamondFetch(url, options) {
                 return;
             }
 
-            if (optionsWithDefault.caching.read && optionsWithDefault.caching.type === "local") {
+            if (optionsWithDefault.caching.read) {
+              if(optionsWithDefault.caching.type == "SuperDiamondStore" || (optionsWithDefault.caching.type == "IndexedDB") {
                 const responseObj = JSON.parse(await SuperDiamondFetchCacheStorage.async.getItem(url));
                 resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
                 return;
+              }
+              if(optionsWithDefault.caching.type == "local") {
+                var responseObj = fetch("http://localhost:4001/Cache/Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
+                resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
+                return;
+              }
+              if(optionsWithDefault.caching.type == "origin-local") {
+                var responseObj = fetch("http://localhost:4001/Cache/Origin-Local/get.php", { method: "POST", body: JSON.stringify({ key: url})})
+                resolve(CompleteSuperDiamondFetchResponseObject(responseObj));
+                return;
+              }
             }
 
             const response = await fetch("https://alexidians.com/Super-Diamond-Fetch/SuperDiamondFetch.php", {
@@ -78,8 +90,16 @@ async function SuperDiamondFetch(url, options) {
 
             const responseObj = await response.json();
 
-            if (optionsWithDefault.caching.write && optionsWithDefault.caching.type === "local") {
+            if (optionsWithDefault.caching.write) {
+              if(optionsWithDefault.caching.type == "SuperDiamondStore" || (optionsWithDefault.caching.type == "IndexedDB") {
                 await SuperDiamondFetchCacheStorage.async.setItem(url, JSON.stringify(responseObj));
+              }
+              if(optionsWithDefault.caching.type == "local") {
+                await fetch("http://localhost:4001/Cache/Local/get.php", { method: "POST", body: JSON.stringify({ key: url, value: JSON.stringify(responseObj)})})
+              }
+              if(optionsWithDefault.caching.type == "origin-local") {
+                await fetch("http://localhost:4001/Cache/Origin-Local/get.php", { method: "POST", body: JSON.stringify({ key: url, value: JSON.stringify(responseObj)})})
+              }
             }
 
             responseObj.SuperDiamondFetch = response;
