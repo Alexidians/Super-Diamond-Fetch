@@ -50,7 +50,7 @@ async function SuperDiamondFetch(url, options) {
             optionsWithDefault.url = url;
 
             if (optionsWithDefault.AutoRetry.enable) {
-                var const optionsAutoRetry = { ...options };
+                var optionsAutoRetry = options;
                 optionsAutoRetry.AutoRetry.enable = false;
                 resolve(await SuperDiamondFetchAutoRetry(url, optionsAutoRetry));
                 return;
@@ -148,8 +148,8 @@ function CompleteSuperDiamondFetchResponseObject(responseObj) {
         },
         arrayBuffer: async () => {
             try {
-                const encoder = new TextEncoder();
-                const encodedData = encoder.encode(responseObj.body);
+                var encoder = new TextEncoder();
+                var encodedData = encoder.encode(responseObj.body);
                 return encodedData.buffer;
             } catch(err) {
                 throw err;
@@ -157,10 +157,10 @@ function CompleteSuperDiamondFetchResponseObject(responseObj) {
         },
         formData: async () => {
             try {
-                const keyValuePairs = responseObj.body.split('&');
-                const formData = new FormData();
+                var keyValuePairs = responseObj.body.split('&');
+                var formData = new FormData();
                 keyValuePairs.forEach(keyValuePair => {
-                    const [key, value] = keyValuePair.split('=');
+                    var [key, value] = keyValuePair.split('=');
                     formData.append(key, decodeURIComponent(value));
                 });
                 return formData;
