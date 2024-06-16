@@ -30,6 +30,7 @@ async function SuperDiamondFetch(url, options) {
                 headers: {},
                 timeout: 10000,
                 credentials: "same-origin",
+                bodyType: "JSON",
                 hide_ip: false,
                 redirects: {
                     follow: false,
